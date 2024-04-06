@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BaseManager : MonoBehaviour
@@ -10,30 +11,19 @@ public class BaseManager : MonoBehaviour
     private int baseLevel = 0;
     [SerializeField] private int maxLevel = 1;
 
+    [SerializeField] private int currentFlowers = 0;
+    [SerializeField] private int[] flowersToLevelUp;
+
     // Señor cactus can't come inside the safe area
     [SerializeField] private float safeArea = 20f;
 
     [SerializeField] private GameObject[] baseLevelBuildings;
     [SerializeField] private Transform baseBuildingPos;
-    private GameObject currentBuilding;
+    [SerializeField] private GameObject currentBuilding;
 
     public GameObject smokeVFX;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        upgradeBuilding();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            if(baseLevel != maxLevel)
-                levelUp();
-        }
-    }
+    public TextMeshProUGUI flowersAmountText;
 
     public void levelUp()
     {
@@ -48,7 +38,21 @@ public class BaseManager : MonoBehaviour
     {
         Instantiate(smokeVFX, baseBuildingPos.position, Quaternion.identity);
         // TODO: Add smoke effect on bulding upgrade
-        currentBuilding = Instantiate(baseLevelBuildings[baseLevel], baseBuildingPos.position, Quaternion.identity, transform);
+        currentBuilding = Instantiate(baseLevelBuildings[baseLevel - 1], baseBuildingPos.position, Quaternion.identity, transform);
+    }
+
+    public void SetFlowers(int flowerAmount)
+    {       
+        currentFlowers += flowerAmount;
+        flowersAmountText.text = currentFlowers.ToString() + "/" + flowersToLevelUp[baseLevel].ToString();
+
+        // If there is enough flowers in the base, level up
+        if(currentFlowers >= flowersToLevelUp[baseLevel] && baseLevel != maxLevel)
+        {
+            currentFlowers -= flowersToLevelUp[baseLevel];
+            levelUp();
+            flowersAmountText.text = currentFlowers.ToString() + "/" + flowersToLevelUp[baseLevel].ToString();
+        }
     }
 
     private void OnDrawGizmos()

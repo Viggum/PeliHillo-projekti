@@ -14,4 +14,12 @@ public class Projectile : MonoBehaviour
         if(aliveTime > lifetime)
             Destroy(gameObject);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        IDamageable testInterface = collision.gameObject.GetComponent<IDamageable>();
+
+        if (testInterface != null)
+            testInterface.TakeDamage();
+    }
 }
