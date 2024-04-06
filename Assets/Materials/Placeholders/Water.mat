@@ -130,8 +130,10 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _WaveScale: 0.01
-    - _WaveSpeed: 0.01
+    - _WaterTiling: 695.32
+    - _WaveHeight: 0.9
+    - _WaveScale: 283.91
+    - _WaveSpeed: 0.001
     - _WaveSterngth: 0.69
     - _WorkflowMode: 1
     - _ZWrite: 1
