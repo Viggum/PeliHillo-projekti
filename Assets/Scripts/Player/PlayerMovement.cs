@@ -6,6 +6,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public enum PlayerState
+    {
+        afk,
+        driving
+    }
+
+    public PlayerState state;
+
     public CharacterController controller;
     public Transform cam;
 
@@ -16,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
 
     private float turnSmoothTime = 0.15f;
     float turnSmoothVelocity;
+
+    [SerializeField] private AudioSource afkAudio;
+    [SerializeField] private AudioSource drivingAudio;
+ 
 
     // Update is called once per frame
     void Update()
