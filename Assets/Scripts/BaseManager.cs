@@ -37,7 +37,7 @@ public class BaseManager : MonoBehaviour
     public void upgradeBuilding()
     {
         Instantiate(smokeVFX, baseBuildingPos.position, Quaternion.identity);
-        // TODO: Add smoke effect on bulding upgrade
+        
         currentBuilding = Instantiate(baseLevelBuildings[baseLevel - 1], baseBuildingPos.position, Quaternion.identity, transform);
     }
 
@@ -53,6 +53,9 @@ public class BaseManager : MonoBehaviour
             levelUp();
             flowersAmountText.text = currentFlowers.ToString() + "/" + flowersToLevelUp[baseLevel].ToString();
         }
+
+        if (baseLevel == maxLevel)
+            flowersAmountText.text = "Max";
     }
 
     private void OnDrawGizmos()
