@@ -26,6 +26,6 @@ public class MainMenu : MonoBehaviour
         startAudio.Play();
         yield return new WaitForSeconds(3f);
 
-        SceneManager.LoadSceneAsync("Mea"); //Change later
+        SceneManager.LoadSceneAsync("Game");
     }
 }
