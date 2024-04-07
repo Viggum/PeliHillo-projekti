@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class EnemyShooting : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class EnemyShooting : MonoBehaviour
 
     [SerializeField] private Transform firePos;
     public GameObject fireVFX;
+    [SerializeField] private VisualEffect smokeEffect;
 
     public float shootDelay = 5f;
     float shootTimer;
@@ -18,12 +20,7 @@ public class EnemyShooting : MonoBehaviour
     public float shootForce = 20f;
 
     public AudioSource audioSource;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private AudioClip[] shootingAudioClips;    
 
     // Update is called once per frame
     void Update()
@@ -48,10 +45,14 @@ public class EnemyShooting : MonoBehaviour
         // Start FireVFX
         Instantiate(fireVFX, firePos.position, Quaternion.identity, transform);
 
+        audioSource.clip = shootingAudioClips[0];
         audioSource.Play();
         // Wait
         yield return new WaitForSeconds(2);
-        audioSource.Stop();
+
+        smokeEffect.Play();
+        audioSource.clip = shootingAudioClips[1];
+        audioSource.Play();
 
         // TODO: Add shooting sound
 
