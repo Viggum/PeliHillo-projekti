@@ -51,7 +51,9 @@ public class BaseManager : MonoBehaviour
         {
             currentFlowers -= flowersToLevelUp[baseLevel];
             levelUp();
-            flowersAmountText.text = currentFlowers.ToString() + "/" + flowersToLevelUp[baseLevel].ToString();
+
+            if(baseLevel != maxLevel)
+                flowersAmountText.text = currentFlowers.ToString() + "/" + flowersToLevelUp[baseLevel].ToString();
         }
 
         if (baseLevel == maxLevel)
